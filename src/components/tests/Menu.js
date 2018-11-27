@@ -25,12 +25,12 @@ class Menu extends Component {
   render() {
     return (
       <div>
-        <h1 className="text-center">Testai klausai lavinti</h1>
+        <h1 className="text-center">Ear training tests</h1>
 
         <form>
           <div className="form-group">
             <label htmlFor="exampleFormControlSelect1">
-              Pasirinkite dainą, su kuria žaisite:
+              Choose song, that you will play with:
             </label>
             <select
               songListValue={this.state.songListValue}
@@ -47,7 +47,7 @@ class Menu extends Component {
             </select>
           </div>
 
-          <label htmlFor="exampleFormControlSelect1">Pasirinkite testo rūšį: </label>
+          <label htmlFor="exampleFormControlSelect1">Choose test type: </label>
 
           {/* <div className="form-check">
             <input type="radio" className="form-check-input"/>
@@ -66,15 +66,15 @@ class Menu extends Component {
           <hr/>
 
         <ButtonGroup>
-          <Button>Fiksuoti</Button>
-          <Button>Nefiksuoti</Button>
+          <Button>Fixed</Button>
+          <Button>Non-fixed</Button>
         </ButtonGroup>
 
         <hr/>
           <div className="form-check" />
           <button type="submit" class="btn btn-success">
           <Link to="/EqualizerTest" className="nav-link">
-          Žaisti
+          Play
           </Link>
             
           </button>
