@@ -13,11 +13,12 @@ class AddSong extends Component {
         songArtist: '',
         songName: '',
         songGenre: '',
-        songSize: '',
         songLength: '',
         isUploading: false,
         progress: 0,
-        songStorageId: ""
+        songStorageId: "",
+        userSongs: ''
+
     }
 
 handleUploadStart = () => this.setState({ isUploading: true, progress: 0});
@@ -31,11 +32,17 @@ handleUploadSuccess = filename => {
     firebase
         .storage()
         .ref("songs")
-        .child(auth.uid)
         .child(filename)
         .getDownloadURL()
-        .then(url => this.setState({ avatarURL: url }));
+        .then(url => this.setState({ songURL: url }));
 };
+
+// handleSongIdUploadToUserCollection = filename => {
+//     this.setState({ userSongs: filename });
+//     firebase
+//     .storage()
+    
+// }
 
 onSubmit = (e) => {
     e.preventDefault();
@@ -44,10 +51,6 @@ onSubmit = (e) => {
 
     const { firestore, history } = this.props;
 
-    // if no balance, make 0
-    if(newSong.songSize === '') {
-        newSong.songSize = 0;
-    }
     
     firestore.add({ collection: 'songs' }, newSong)
     .then(() => history.push('/'));
@@ -109,13 +112,13 @@ onChange = (e) => this.setState({ [e.target.name]: e.target.value});
                     <div className="form-group">
                         <label htmlFor="songGenre">Upload song</label>
                         {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
-                        {/* {this.state.avatarURL && <img src={this.state.avatarURL} />} */}
                         <FileUploader 
                             className="form-control"
                             accept="audio/*"
                             name="song"
                             required
                             randomizeFilename
+                            filename={this.state.songStorageId}
                             storageRef={firebase.storage().ref("songs")}
                             onUploadStart={this.handleUploadStart}
                             onUploadError={this.handleUploadError}

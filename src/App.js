@@ -4,23 +4,29 @@ import { UserIsAuthenticated, UserIsNotAuthenticated } from './helpers/auth';
 
 import { Provider } from 'react-redux';
 import store from './store';
+import { RRWAEngine, actionCreators, webAudioReducer } from 'react-redux-webaudio';
 
 import AppNavbar from './components/layout/AppNavbar';
 import Dashboard from './components/layout/Dashboard';
 import AddSong from './components/songs/AddSong';
-//import EditSong from './components/songs/EditSong';
 import SongDetails from './components/songs/SongDetails';
 import Login from './components/auth/Login';
 import Register from './components/auth/Register';
 import Menu from './components/tests/Menu';
+import EqualizerTest from './components/tests/EqualizerTest';
+import { combineReducers } from 'redux';
+// import { ReactComponent } from '*.svg';
 
 
 class App extends Component {
+
+
   render() {
     return (
       <Provider store={store}>
         <Router>
         <div className="App">
+          {/* <RRWAEngine /> */}
           <AppNavbar />
           <div className="container">
           <Switch>
@@ -55,6 +61,11 @@ class App extends Component {
               path='/menu'
               component={UserIsAuthenticated(Menu)}
             />
+            <Route
+              exact
+              path='/equalizertest'
+              component={UserIsAuthenticated(EqualizerTest)}
+            />
           </Switch>
           </div>
         </div>
@@ -63,5 +74,15 @@ class App extends Component {
     );
   }
 }
+
+
+// const rootReducer = combineReducers({
+//   webAudioReducer
+// });
+
+// const Container = connect(
+//   state => state,
+//   dispatch => ({ makeNoise: () => dispatch(actionCreators.emit(audioEvent)) })
+// )(ReactComponent);
 
 export default App;

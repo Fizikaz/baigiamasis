@@ -12,7 +12,13 @@ import Player from './Player';
 
 class SongDetails extends Component {
 
+  constructor(props) {
+    super(props);
 
+    this.state = {
+
+    }
+  }
 
   render() {
 
@@ -30,9 +36,6 @@ class SongDetails extends Component {
             </div>
             <div className="col-md-6">
               <div className="btn-group float-right">
-                <Link to={'/song/edit/${songId}'} className="btn btn-dark">
-                  Edit
-                </Link>
                 <button className="btn btn-danger">
                   Delete
                 </button>
@@ -53,6 +56,12 @@ class SongDetails extends Component {
                   </div>
               </div>
               <Player />
+              {/* <button onClick={() => this.setState({ })}>
+                Play
+              </button>
+              <button onClick={() => this.setState({ })}>
+                Pause
+              </button> */}
             </div>
           </div>
   
@@ -86,3 +95,42 @@ export default compose(
       songs: ordered.song && ordered.song[0]
     }))
   )(SongDetails);
+
+
+
+
+
+
+
+  // init = () => {
+
+
+  //   this.p = Peaks.init({
+  //     container: this.audio,
+  //     mediaElement: document.querySelector('audio'),
+  //     audioContext: myAudioContext
+  //   });
+
+  //   p.on('peaks.ready', function() {
+  //     state.ready = true
+  //   });
+
+  // }
+  
+
+  // componentDidMount() { this.init()}
+
+  // componentWillReceiveProps(props, newProps){</ClickOutside>
+  //   if(props.id !== newProps.id){
+  //     p.des
+  //     init
+  //   }
+  // }
+
+  // shouldComponentUpdate(){
+  //   return false;
+  // }
+
+  // render() {
+  //   return (
+  //     <ClickOutside ref={(div) => this.audio = div} >

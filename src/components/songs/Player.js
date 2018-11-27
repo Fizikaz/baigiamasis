@@ -1,47 +1,55 @@
 import React, { Component } from 'react';
-import ReactDOM from 'react-dom';
-// import Wavesurfer from 'react-wavesurfer';
-// import Waveform from './Waveform';
-
-class Player extends React.Component {
-
-    componentWillReceiveProps(){
-
-    }
+import PropTypes from 'prop-types';
+import { firestoreConnect } from 'react-redux-firebase';
+import WaveSurfer from 'wavesurfer.js';
 
 
-    constructor(props) {
-      super(props);
-   
-      this.state = {
-        playing: false,
-        pos: 0
-      };
-      this.handleTogglePlay = this.handleTogglePlay.bind(this);
-      this.handlePosChange = this.handlePosChange.bind(this);
-    }
-    handleTogglePlay() {
-      this.setState({
-        playing: !this.state.playing
-      });
-    }
-    handlePosChange(e) {
-      this.setState({
-        pos: e.originalArgs[0]
-      });
-    }
-    render() {
-      return (
-        <div>
-          <Wavesurfer
-            audioFile={'./test.mp3'}
-            pos={this.state.pos}
-            onPosChange={this.handlePosChange}
-            playing={this.state.playing}
-          />
-        </div>
-        );
-    }
+class Player extends Component {
+
+  shouldComponentUpdate() {
+    return false;
   }
-  
-  export default Player;
+
+  getSongFromBucket() {
+    // this.storage = firebase.storage().refFromURL()
+
+  }
+
+  componentWillReceiveProps(nextProps) {
+    this.waveform.play(); 
+  }
+
+  componentDidMount() {
+    this.waveform = new WaveSurfer.create({
+      container: this.refs.waveform,
+      waveColor: 'violet',
+      progressColor: 'purple',
+      barHeight: 20
+    });
+
+    
+
+    // this.waveform.load(this.props.songSelected);
+  }
+
+  render() {
+    return (
+      <div>
+        <div id="waveform" ref="waveform">
+
+        </div>
+      </div>
+    )
+  }
+}
+
+Player.propTypes = {
+  firestore: PropTypes.object.isRequired
+}
+
+// export default Player;
+
+export default firestoreConnect()(Player);
+
+
+

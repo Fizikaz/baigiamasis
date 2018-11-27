@@ -1,47 +1,86 @@
 // Select test between several
 
-import React, { Component } from 'react'
+import React, { Component } from "react";
+import { Link } from 'react-router-dom';
+import { Button, ButtonGroup } from 'react-bootstrap';
 
 class Menu extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      songListValue: "song1",
+      testValues: "fiksuoti"
+    };
+  }
+
+  handleChange = e => {
+    this.setState({ songListValue: e.target.songListValue });
+  };
+
+  handleSubmit = e => {
+    alert("You have selected this song" + this.state.songListValue);
+    e.preventDefault();
+  };
+
   render() {
     return (
       <div>
-      <h1 className="text-center">Testai klausai lavinti</h1>
-
+        <h1 className="text-center">Testai klausai lavinti</h1>
 
         <form>
-        <div class="form-group">
-            <label for="exampleFormControlSelect1">Pasirinkite dainą, su kuria žaisite:</label>
-            <select className="form-control" id="exampleFormControlSelect1">
-            <option>Song 1</option>
-            <option>Song 2</option>
-            <option>Song 3</option>
-            <option>Song 4</option>
-            <option>Song 5</option>
-            </select>
-            <div className="form-check">
-            <label>Pasirinkit testo rūšį: </label>
-        
-        <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1" value="option1" checked />
-            <label class="form-check-label" for="exampleRadios1">
-                Fiksuoti dažniai
+          <div className="form-group">
+            <label htmlFor="exampleFormControlSelect1">
+              Pasirinkite dainą, su kuria žaisite:
             </label>
-            </div>
-            <div class="form-check">
-            <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2" />
-            <label class="form-check-label" for="exampleRadios2"> Nefiksuoti dažniai</label>
-            </div>
-            </div>
-            <div className="form-check">
-                
-            </div>
-        <button type="submit" class="btn btn-primary">Žaisti</button>
-        </div>
+            <select
+              songListValue={this.state.songListValue}
+              onChange={this.handleChange}
+              className="form-control"
+              id="exampleFormControlSelect1"
+            >
+              <option songListValue="song1">Song 1</option>
+              <option songListValue="song2">Song 2</option> // extract songs
+              from user SongList
+              <option songListValue="song3">Song 3</option>
+              <option songListValue="song4">Song 4</option>
+              <option songListValue="song5">Song 5</option>
+            </select>
+          </div>
+
+          <label htmlFor="exampleFormControlSelect1">Pasirinkite testo rūšį: </label>
+
+          {/* <div className="form-check">
+            <input type="radio" className="form-check-input"/>
+            <label htmlFor="testTypeFix" className="form-check-label">
+              Fiksuoti dažniai
+            </label>
+          </div>
+
+          <div className="form-check">
+            <input type="radio" className="form-check-input"/>
+            <label htmlFor="testTypeFix" className="form-check-label">
+              Nefiksuoti dažniai
+            </label>
+          </div> */}
+
+          <hr/>
+
+        <ButtonGroup>
+          <Button>Fiksuoti</Button>
+          <Button>Nefiksuoti</Button>
+        </ButtonGroup>
+
+        <hr/>
+          <div className="form-check" />
+          <button type="submit" class="btn btn-success">
+          <Link to="/EqualizerTest" className="nav-link">
+          Žaisti
+          </Link>
+            
+          </button>
         </form>
-        </div>
-    
-    )
+      </div>
+    );
   }
 }
 

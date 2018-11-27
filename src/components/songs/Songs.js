@@ -6,6 +6,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 import Spinner from '../layout/Spinner';
 import { parse } from 'url';
+import { auth } from 'firebase';
 
 class Songs extends Component {
   state = {
@@ -14,6 +15,7 @@ class Songs extends Component {
 
   static getDerivedStateFromProps(props, state){
     const { songs } = props;
+    // const { auth } = props;
 
     if(songs) {
       //Add song number
@@ -28,10 +30,11 @@ class Songs extends Component {
   }
 
   render() {
-    const { songs } = this.props;
+    const { userSongs } = this.props;
     const { totalSongs } = this.state;
+    const { auth } = this.props;
 
-    if(songs){
+    if(userSongs){
       return (
         <div>
           <div className="row">
@@ -42,12 +45,12 @@ class Songs extends Component {
               </h2>
             </div>
             <div className="col-md-6">
-              <h5 className="text-right text-secondary">
+              {/* <h5 className="text-right text-secondary">
                 Total Songs Length{' '}
                 <span className="text-primary">
                 {parseFloat(totalSongs)}
                 </span>
-              </h5>
+              </h5> */}
             </div>
           </div>
           <table className="table table-striped">
@@ -56,19 +59,19 @@ class Songs extends Component {
                 <th>Artist</th>
                 <th>Name</th>
                 <th>Genre</th>
-                <th>Size</th>
-                <th>Length</th>
+                {/* <th>Size</th>
+                <th>Length</th> */}
                 <th />
               </tr>
             </thead>
             <tbody>
-              {songs.map(song => (
+              {userSongs.map(song => (
                 <tr key={song.id}>
                   <td>{song.songArtist}</td>
                   <td>{song.songName}</td>
                   <td>{song.songGenre}</td>
-                  <td>{parseFloat(song.songSize).toFixed(2)}MB</td>
-                  <td>{song.songLength}min</td>
+                  {/* <td>{parseFloat(song.songSize).toFixed(2)}MB</td>
+                  <td>{song.songLength}min</td> */}
                   <td>
                     <Link to={'/song/' + song.id} className="btn btn-secondary btn-sm">
                     <i className="fas fa-arrow-circle-right"></i> Listen
@@ -88,12 +91,13 @@ class Songs extends Component {
 
 Songs.propTypes = {
   firestore: PropTypes.object.isRequired,
-  songs: PropTypes.array
+  userSongs: PropTypes.array
 }
 
 export default compose(
   firestoreConnect([{ collection: 'songs' }]),
   connect((state, props) => ({
-    songs: state.firestore.ordered.songs 
+    userSongs: state.firestore.ordered.songs,
+    auth: state.firebase.auth
   }))
 )(Songs);

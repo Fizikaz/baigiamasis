@@ -50,7 +50,7 @@ class AppNavbar extends Component {
                 {isAuthenticated ? (
                     <li className="nav-item">
                         <Link to="/Menu" className="nav-link">
-                            Dashboard
+                            Take test!
                         </Link>
                     </li>
                     ) : null}
