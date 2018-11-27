@@ -5,6 +5,7 @@ import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
 
 import Player from '../songs/Player';
+import Slider from '../tests/Slider';
 
 
 class EqualizerTest extends Component {
@@ -26,6 +27,7 @@ class EqualizerTest extends Component {
       <div>
       
       <Player songSelected={this.state.songSelected} testTypeSelected={this.state.testTypeSelected} />
+      {/* <Slider /> */}
       </div>
     )
   }
