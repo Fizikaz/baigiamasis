@@ -29,7 +29,7 @@ class Player extends Component {
 
     
 
-    // this.waveform.load(this.props.songSelected);
+    this.waveform.load('https://ia802508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3');
   }
 
   render() {

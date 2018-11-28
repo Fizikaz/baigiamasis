@@ -2,6 +2,17 @@ import React, { Component } from 'react';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
 
 class Slider extends Component {
+
+  constructor(props){
+    super(props);
+     
+      this.state = {
+        currentValue: 20,
+        max: 20000,
+        min: 20
+    }
+  }
+
   render() {
     return (
       <div>

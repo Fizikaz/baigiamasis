@@ -27,7 +27,7 @@ class EqualizerTest extends Component {
       <div>
       
       <Player songSelected={this.state.songSelected} testTypeSelected={this.state.testTypeSelected} />
-      {/* <Slider /> */}
+      <Slider />
       </div>
     )
   }
