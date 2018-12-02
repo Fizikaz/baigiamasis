@@ -5,10 +5,12 @@
   "dependencies": {
     "classnames": "^2.2.6",
     "firebase": "^5.5.8",
+    "jquery": "^3.3.1",
     "peaks.js": "^0.9.13",
     "react": "^16.6.1",
     "react-bootstrap": "^0.32.4",
     "react-bootstrap-slider": "^2.1.5",
+    "react-bootstrap-table-next": "^1.4.1",
     "react-dom": "^16.6.1",
     "react-firebase-file-uploader": "^2.4.2",
     "react-scripts": "2.1.1",

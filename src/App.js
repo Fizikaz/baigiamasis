@@ -15,6 +15,7 @@ import Register from './components/auth/Register';
 import Menu from './components/tests/Menu';
 import EqualizerTest from './components/tests/EqualizerTest';
 import { combineReducers } from 'redux';
+import Results from './components/tests/Results'
 // import { ReactComponent } from '*.svg';
 
 
@@ -63,8 +64,13 @@ class App extends Component {
             />
             <Route
               exact
-              path='/equalizertest'
+              path='/equalizertest/:id'
               component={UserIsAuthenticated(EqualizerTest)}
+            />
+            <Route
+              exact
+              path='/results'
+              component={UserIsAuthenticated(Results)}
             />
           </Switch>
           </div>

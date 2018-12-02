@@ -16,7 +16,14 @@ class Player extends Component {
   }
 
   componentWillReceiveProps(nextProps) {
-    this.waveform.play(); 
+    if(nextProps.shouldPlay){
+      this.waveform.play(); 
+    }
+    if(this.props.shouldPlay && !nextProps.shouldPlay){
+      this.waveform.pause(); 
+    }
+
+    
   }
 
   componentDidMount() {
@@ -24,12 +31,12 @@ class Player extends Component {
       container: this.refs.waveform,
       waveColor: 'violet',
       progressColor: 'purple',
-      barHeight: 20
+      barHeight: 1
     });
 
-    
+    console.log(this.props)
 
-    this.waveform.load('https://ia802508.us.archive.org/5/items/testmp3testfile/mpthreetest.mp3');
+    this.waveform.load(this.props.songUrl);
   }
 
   render() {

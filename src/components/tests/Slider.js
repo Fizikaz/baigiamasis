@@ -1,35 +1,45 @@
 import React, { Component } from 'react';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
+import SliderCounter from './SliderCounter';
 
 class Slider extends Component {
 
-  constructor(props){
-    super(props);
-     
-      this.state = {
-        currentValue: 20,
-        max: 20000,
-        min: 20
-    }
-  }
+
+
+  // handleEvent = (e) => {
+  //   this.setState({
+  //     currentValue: e
+  //   })
+  // }
+
+  // onChangeSliderValue(newSliderValue) {
+  //   this.setState({
+  //     currentValue: newSliderValue
+  //   });
+  // }
 
   render() {
     return (
       <div>
         <ReactBootstrapSlider
-            value={this.state.currentValue}
-            change={this.changeValue}
-            slideStop={this.changeValue}
-            step={this.state.step}
-            max={this.state.max}
-            min={this.state.min}
-            orientation="vertical"
-            reversed={true}
-            disabled="disabled" 
+            value={this.props.value}
+            change={this.props.changeValue}
+            slideStop={this.props.changeValue}
+            step={this.props.step}
+            max={this.props.max}
+            min={this.props.min}
+            orientation="horizontal"
+            reversed={false}
+            // disabled="disabled" 
         />
+        
+        <hr/>
+        <span id='currentSliderValue'>Current Slider Value: {this.props.value} <SliderCounter /> </span>
       </div>
     )
   }
 }
+
+
 
 export default Slider;

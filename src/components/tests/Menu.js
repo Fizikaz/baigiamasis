@@ -1,28 +1,35 @@
 // Select test between several
 
 import React, { Component } from "react";
-import { Link } from 'react-router-dom';
-import { Button, ButtonGroup } from 'react-bootstrap';
+import { Link } from "react-router-dom";
+import { Button, ButtonGroup } from "react-bootstrap";
+import PropTypes from 'prop-types';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firestoreConnect } from 'react-redux-firebase';
 
 class Menu extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      songListValue: "song1",
+      value: null,
       testValues: "fiksuoti"
     };
   }
 
   handleChange = e => {
-    this.setState({ songListValue: e.target.songListValue });
+    this.setState({ value: e.target.value });
   };
 
   handleSubmit = e => {
-    alert("You have selected this song" + this.state.songListValue);
+    alert("You have selected this song" + this.state.value);
     e.preventDefault();
   };
 
   render() {
+
+    const { userSongs = [] } = this.props
+
     return (
       <div>
         <h1 className="text-center">Ear training tests</h1>
@@ -33,17 +40,28 @@ class Menu extends Component {
               Choose song, that you will play with:
             </label>
             <select
-              songListValue={this.state.songListValue}
+              value={this.state.value}
               onChange={this.handleChange}
               className="form-control"
               id="exampleFormControlSelect1"
             >
-              <option songListValue="song1">Song 1</option>
-              <option songListValue="song2">Song 2</option> // extract songs
+              {/* <option value="song1">Song 1</option>
+              <option value="song2">Song 2</option> // extract songs
               from user SongList
-              <option songListValue="song3">Song 3</option>
-              <option songListValue="song4">Song 4</option>
-              <option songListValue="song5">Song 5</option>
+              <option value="song3">Song 3</option>
+              <option value="song4">Song 4</option>
+              <option value="song5">Song 5</option> */}
+
+              {userSongs.map(song => (
+                <option 
+                key={song.id} 
+                value={song.id}
+                > {song.songName}
+
+                </option> 
+                
+
+              ))}
             </select>
           </div>
 
@@ -63,20 +81,22 @@ class Menu extends Component {
             </label>
           </div> */}
 
-          <hr/>
+          <hr />
 
-        <ButtonGroup>
-          <Button>Fixed</Button>
-          <Button>Non-fixed</Button>
-        </ButtonGroup>
+          <ButtonGroup>
+            <Button>Fixed</Button>
+            <Button>Non-fixed</Button>
+          </ButtonGroup>
 
-        <hr/>
+          <hr />
           <div className="form-check" />
           <button type="submit" class="btn btn-success">
-          <Link to="/EqualizerTest" className="nav-link">
-          Play
-          </Link>
-            
+            <Link
+              to={`/EqualizerTest/${this.state.value}`}
+              className="nav-link"
+            >
+              Play
+            </Link>
           </button>
         </form>
       </div>
@@ -84,4 +104,16 @@ class Menu extends Component {
   }
 }
 
-export default Menu;
+
+Menu.propTypes = {
+  firestore: PropTypes.object.isRequired,
+  userSongs: PropTypes.array
+}
+
+export default compose(
+  firestoreConnect([{ collection: 'songs' }]),
+  connect((state, props) => ({
+    userSongs: state.firestore.ordered.songs,
+    auth: state.firebase.auth
+  }))
+)(Menu);

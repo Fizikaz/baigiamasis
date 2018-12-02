@@ -24,6 +24,10 @@ class SongDetails extends Component {
 
     const { song } = this.props;
 
+    if(!song){
+      return null
+    }
+
     // if(song) {
 
     return (
@@ -44,7 +48,7 @@ class SongDetails extends Component {
           </div>
           <div className="card">
             <h3 className="card-header">
-              {song}
+              {song.songName}
             </h3>
             <div className="card-body">
               <div className="row">
@@ -55,7 +59,9 @@ class SongDetails extends Component {
                   
                   </div>
               </div>
-              <Player />
+              <Player
+                    songUrl={song.songURL}
+               />
               {/* <button onClick={() => this.setState({ })}>
                 Play
               </button>
@@ -92,7 +98,7 @@ export default compose(
         { collection: 'songs', storeAs: 'song', doc: props.match.params.id }
     ]),
     connect(({ firestore: { ordered } }, props) => ({
-      songs: ordered.song && ordered.song[0]
+      song: ordered.song && ordered.song[0]
     }))
   )(SongDetails);
 

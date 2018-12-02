@@ -13,8 +13,8 @@ const firebaseConfig = {
     databaseURL: "https://testaiklausai.firebaseio.com",
     projectId: "testaiklausai",
     storageBucket: "testaiklausai.appspot.com",
-    messagingSenderId: "968497496530"
-};
+    messagingSenderId: "968497496530",
+}
 
 // react-redux-firebase config
 const rrfConfig = {
