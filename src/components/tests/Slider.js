@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import SliderCounter from './SliderCounter';
+import QuestionCounter from './QuestionCounter';
 
 class Slider extends Component {
 
@@ -34,7 +34,7 @@ class Slider extends Component {
         />
         
         <hr/>
-        <span id='currentSliderValue'>Current Slider Value: {this.props.value} <SliderCounter /> </span>
+        <span id='currentSliderValue'>Current Slider Value: {this.props.value} </span>
       </div>
     )
   }

@@ -13,8 +13,14 @@ class Menu extends Component {
     super(props);
     this.state = {
       value: null,
-      testValues: "fiksuoti"
+      testValue: null
     };
+  }
+
+  onClick = (e) => {
+    this.setState({
+      testValue: e.target.value
+    })
   }
 
   handleChange = e => {
@@ -30,6 +36,8 @@ class Menu extends Component {
 
     const { userSongs = [] } = this.props
 
+
+
     return (
       <div>
         <h1 className="text-center">Ear training tests</h1>
@@ -43,7 +51,6 @@ class Menu extends Component {
               value={this.state.value}
               onChange={this.handleChange}
               className="form-control"
-              id="exampleFormControlSelect1"
             >
               {/* <option value="song1">Song 1</option>
               <option value="song2">Song 2</option> // extract songs
@@ -51,7 +58,7 @@ class Menu extends Component {
               <option value="song3">Song 3</option>
               <option value="song4">Song 4</option>
               <option value="song5">Song 5</option> */}
-
+              
               {userSongs.map(song => (
                 <option 
                 key={song.id} 
@@ -84,8 +91,8 @@ class Menu extends Component {
           <hr />
 
           <ButtonGroup>
-            <Button>Fixed</Button>
-            <Button>Non-fixed</Button>
+            <Button value={"fixed"} onClick={this.onClick}  bsStyle={this.state.testValue === "fixed" ? "primary": ""}>Fixed</Button>
+            <Button value={"nonfixed"} onClick={this.onClick} bsStyle={this.state.testValue === "nonfixed" ? "primary": ""}>Non-fixed</Button>
           </ButtonGroup>
 
           <hr />

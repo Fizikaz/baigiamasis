@@ -8,6 +8,8 @@ import { Link } from "react-router-dom";
 import Player from "../songs/Player";
 import Slider from "../tests/Slider";
 
+//import QuestionCounter from "../tests/QuestionCounter";
+
 class EqualizerTest extends Component {
   //   const rootReducer = combineReducers({
   //         webAudioReducer
@@ -37,6 +39,7 @@ class EqualizerTest extends Component {
           songUrl={this.props.song.songURL}
           testTypeSelected={this.state.testTypeSelected}
           shouldPlay={this.state.currentValue > 10000}
+          
         />
         <hr />
         <Slider
