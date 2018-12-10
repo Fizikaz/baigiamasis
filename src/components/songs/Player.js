@@ -11,11 +11,6 @@ class Player extends Component {
     return false;
   }
 
-  getSongFromBucket() {
-    // this.storage = firebase.storage().refFromURL()
-
-  }
-
   componentWillReceiveProps(nextProps) {
     if(nextProps.shouldPlay){
       this.waveform.play(); 
@@ -23,6 +18,8 @@ class Player extends Component {
     if(this.props.shouldPlay && !nextProps.shouldPlay){
       this.waveform.pause(); 
     }
+    
+
     
   }
 
@@ -41,21 +38,12 @@ class Player extends Component {
     });
 
 
-
-
-
     this.waveform.on('ready', () => {
 
-
-     
-        var filter = this.waveform.backend.ac.createBiquadFilter();
-        filter.type = "lowpass";
-        filter.gain.value = 0;
-        filter.Q.value = 1;
-        filter.frequency.value = 100;
+      this.filter = this.waveform.backend.ac.createBiquadFilter();
 
 
-      this.waveform.backend.setFilters(filter);
+      this.waveform.backend.setFilters([this.filter]);
 
 
       // var duration = this.waveform.backend.getDuration();
@@ -63,11 +51,15 @@ class Player extends Component {
       var songDuration = this.waveform.backend.getDuration();
       var songLength = Math.round(songDuration);
 
+      this.firstRegion = songLength/4;
+      this.secondRegion = songLength/2;
+      this.thirdRegion = songLength/(1/0.75)
+
 
             // FIRST REGION
             this.waveform.addRegion({
               start: 0, // time in seconds
-              end: songLength/4, // time in seconds
+              end: this.firstRegion, // time in seconds
               color: 'rgba(0, 120, 224, 0.5)',
               drag: false,
               resize: false
@@ -75,8 +67,8 @@ class Player extends Component {
       
             // SECOND REGION
             this.waveform.addRegion({
-              start: songLength/4, // time in seconds
-              end: songLength/2, // time in seconds
+              start: this.firstRegion, // time in seconds
+              end: this.secondRegion, // time in seconds
               color: 'rgba(107, 100, 70, 0.5)',
               drag: false,
               resize: false
@@ -84,8 +76,8 @@ class Player extends Component {
       
             // THIRD REGION
             this.waveform.addRegion({
-              start: songLength/2, // time in seconds
-              end: songLength/(1/0.75), // time in seconds
+              start: this.secondRegion, // time in seconds
+              end: this.thirdRegion, // time in seconds
               color: 'rgba(0, 120, 224, 0.5)',
               drag: false,
               resize: false
@@ -93,12 +85,42 @@ class Player extends Component {
       
             // FOURTH REGION
             this.waveform.addRegion({
-              start: songLength/(1/0.75), // time in seconds
+              start: this.thirdRegion, // time in seconds
               end: songLength, // time in seconds
               color: 'rgba(107, 100, 70, 0.5)',
               drag: false,
               resize: false
             });
+
+    });
+
+
+    
+    this.waveform.on('audioprocess', () => {
+
+      this.filter.type = "lowpass";
+      this.filter.gain.value = 0;
+      this.filter.Q.value = 1;
+      this.filter.frequency.value = this.props.filterValue;
+
+      this.currentTime = this.waveform.getCurrentTime() - 1;
+
+      function checkResults(correctAnswer, userAnswer){
+        if(correctAnswer*1.1 >= userAnswer >= correctAnswer*0.9){
+          console.log("good answer");
+          return true;
+        } else {
+          console.log("bad answer");
+          return false;
+        }
+
+      };
+
+      //CHECK IF CURRENT TIME CORRELATES WITH THE REGION ENDING
+      if(this.currentTime == this.firstRegion) {
+        checkResults(100, 100);
+      };
+
 
     });
 

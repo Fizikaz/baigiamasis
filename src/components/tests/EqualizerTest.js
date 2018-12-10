@@ -17,14 +17,21 @@ class EqualizerTest extends Component {
 
   state = {
     testTypeSelected: "fixedEqualizer",
-    currentValue: 20,
+    currentValue: 200,
     max: 20000,
-    min: 20
+    min: 20,
+    isPlaying: false,
   };
 
   changeValue = e => {
     this.setState({
       currentValue: e.target.value
+    });
+  };
+
+  handleChange = e => {
+    this.setState({
+      isPlaying: !this.state.isPlaying
     });
   };
 
@@ -38,8 +45,8 @@ class EqualizerTest extends Component {
         <Player
           songUrl={this.props.song.songURL}
           testTypeSelected={this.state.testTypeSelected}
-          shouldPlay={this.state.currentValue > 10000}
-          
+          shouldPlay={this.state.isPlaying}
+          filterValue={this.state.currentValue}
         />
         <hr />
         <Slider
@@ -50,6 +57,9 @@ class EqualizerTest extends Component {
           min={this.state.min}
         />
 
+        <button type="submit" onClick={this.handleChange} className="btn btn-success">
+          Play
+        </button>
         <button type="submit" className="btn btn-success">
           <Link to="/results">Finish</Link>
         </button>
