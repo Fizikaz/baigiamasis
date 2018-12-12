@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firestoreConnect } from 'react-redux-firebase';
+import firebase, { auth } from 'firebase';
 import Spinner from '../layout/Spinner';
 import classnames from 'classnames';
 
@@ -20,9 +21,31 @@ class SongDetails extends Component {
     }
   }
 
+  onDeleteClick = () => {
+
+    const { song, firestore, history } = this.props;
+
+    var songRef = firebase.storage().refFromURL(this.props.song.songURL)
+    // this.songStorageId = {song.songStorageId};
+
+    songRef.delete()
+
+    firestore.delete({collection: 'songs', doc: song.id})
+    .then(() => history.push('/'));
+
+    // firebase
+    // .storage()
+    // .ref("songs")
+    // .child(songRef)
+    // .delete()
+    // .then(() => history.push('/'))
+
+  }
+
+
   render() {
 
-    const { song } = this.props;
+    const song = this.props.song;
 
     if(!song){
       return null
@@ -30,7 +53,12 @@ class SongDetails extends Component {
 
     // if(song) {
 
+
+
+
     return (
+
+
       <div>
           <div className="row">
             <div className="col-md-6">
@@ -40,7 +68,7 @@ class SongDetails extends Component {
             </div>
             <div className="col-md-6">
               <div className="btn-group float-right">
-                <button className="btn btn-danger">
+                <button className="btn btn-danger" onClick={this.onDeleteClick}>
                   Delete
                 </button>
               </div>
@@ -56,7 +84,7 @@ class SongDetails extends Component {
                   <h4>Song ID:{''} <span className="text-secondary">{}</span></h4>
                 </div>
                 <div className="col-md-4 col-sm-6">
-                  
+        
                   </div>
               </div>
               <Player
@@ -70,16 +98,6 @@ class SongDetails extends Component {
               </button> */}
             </div>
           </div>
-  
-
-{/* <div id="peaks-container">
-
-<audio src="./test.mp3" type="audio/mpeg" controls autoPlay />
-<script src="bower_components/requirejs/require.js" data-main="app.js"></script>
-</div> */}
-
-
-
       </div>
     );
     // } else {
@@ -89,7 +107,10 @@ class SongDetails extends Component {
 }
 
 SongDetails.propType = {
-  firestore: PropTypes.object.isRequired
+  firestore: PropTypes.object.isRequired,
+  firebase: PropTypes.shape({
+    deleteFile: PropTypes.func.isRequired
+  })
 };
 
 

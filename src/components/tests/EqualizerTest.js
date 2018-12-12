@@ -104,6 +104,8 @@ class EqualizerTest extends Component {
           testTypeSelected={this.state.testTypeSelected}
           shouldPlay={this.state.isPlaying}
           filterValue={this.state.currentValue}
+          // correctAnswer={this.state.testValues}
+          // userAnswer={this.state.testSubmittedValues}
         />
         <hr />
         <Slider

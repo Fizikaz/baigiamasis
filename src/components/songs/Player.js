@@ -51,45 +51,41 @@ class Player extends Component {
 
       this.songLength = Math.round(this.waveform.backend.getDuration());
 
-      this.firstRegion = Math.round(this.songLength/4);
-      this.secondRegion = Math.round(this.songLength/2);
-      this.thirdRegion = Math.round(this.songLength/(1/0.75));
+      this.region = [];
+
+      this.region[0] = Math.round(this.songLength/4);
+      this.region[1] = Math.round(this.songLength/2);
+      this.region[2] = Math.round(this.songLength/(1/0.75));
 
       this.waveform.addRegion({
         start: 0, // time in seconds
-        end: this.firstRegion, // time in seconds
+        end: this.region[0], // time in seconds
         color: 'rgba(0, 120, 224, 0.5)',
         drag: false,
         resize: false
       });
       this.waveform.addRegion({
-        start: this.firstRegion, // time in seconds
-        end: this.secondRegion, // time in seconds
+        start: this.region[0], // time in seconds
+        end: this.region[1], // time in seconds
         color: 'rgba(107, 100, 70, 0.5)',
         drag: false,
         resize: false
       });
       this.waveform.addRegion({
-        start: this.secondRegion, // time in seconds
-        end: this.thirdRegion, // time in seconds
+        start: this.region[1], // time in seconds
+        end: this.region[2], // time in seconds
         color: 'rgba(0, 120, 224, 0.5)',
         drag: false,
         resize: false
       });
       this.waveform.addRegion({
-        start: this.thirdRegion, // time in seconds
+        start: this.region[2], // time in seconds
         end: this.songLength, // time in seconds
         color: 'rgba(107, 100, 70, 0.5)',
         drag: false,
         resize: false
       });
-
-    
-
-
     });
-
-
 
     function checkResults(correctAnswer, userAnswer){
       if(correctAnswer*1.1 >= userAnswer >= correctAnswer*0.9){
@@ -112,14 +108,12 @@ class Player extends Component {
 
 
       //CHECK IF CURRENT TIME CORRELATES WITH THE REGION ENDING
-      if(this.currentTime == this.firstRegion) {
-
+      if(this.currentTime == this.region[0]) {
         checkResults(100, 100);
+
+        this.region[0].checked = true;
       };
 
-      if(this.currentTime == 10){
-        console.log("labas");
-      }
 
     });
 
