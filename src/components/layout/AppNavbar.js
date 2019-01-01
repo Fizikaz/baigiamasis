@@ -31,6 +31,8 @@ class AppNavbar extends Component {
   render() {
     const { isAuthenticated } = this.state;
     const { auth } = this.props;
+
+
     return (
       <nav className="navbar navbar-expand-md navbar-dark bg-primary mb-4">
           <div className="container">
@@ -58,13 +60,15 @@ class AppNavbar extends Component {
 
                 {isAuthenticated ? (
                     <ul className="navbar-nav ml-auto">
-                        <li className="nav-item">
-                        <Link to="/chart" className="nav-link">
-                            <a href="#!" className="nav-link">
+                        
+                        
+                        <li className="nav-item" >
+                            <Link to="/chart" className="nav-link">
                                 { auth.email }
-                            </a>
-                        </Link>
+                            </Link>
                         </li>
+                    
+                        
                         <li className="nav-item">
                             <a href="#!" className="nav-link" onClick={this.onLogoutClick}>
                                 Logout

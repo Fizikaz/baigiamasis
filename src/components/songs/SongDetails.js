@@ -8,7 +8,7 @@ import firebase, { auth } from 'firebase';
 import Spinner from '../layout/Spinner';
 import classnames from 'classnames';
 
-import Player from './Player';
+import VanillaPlayer from './VanillaPlayer';
 
 
 class SongDetails extends Component {
@@ -17,9 +17,15 @@ class SongDetails extends Component {
     super(props);
 
     this.state = {
-
+      isPlaying: false,
     }
   }
+
+  handlePlaying = e => {
+    this.setState({
+      isPlaying: !this.state.isPlaying
+    });
+  };
 
   onDeleteClick = () => {
 
@@ -78,8 +84,9 @@ class SongDetails extends Component {
         
                   </div>
               </div>
-              <Player
+              <VanillaPlayer
                     songUrl={song.songURL}
+                    shouldPlay={this.state.isPlaying}
                />
               {/* <button onClick={() => this.setState({ })}>
                 Play
@@ -87,7 +94,10 @@ class SongDetails extends Component {
               <button onClick={() => this.setState({ })}>
                 Pause
               </button> */}
-            </div>
+            </div>           
+              <button  onClick={this.handlePlaying} className="btn btn-lg btn-success m-2">
+                Play
+              </button>
           </div>
       </div>
     );

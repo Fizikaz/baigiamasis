@@ -97,7 +97,7 @@ class Menu extends Component {
 
           <hr />
           <div className="form-check" />
-          <button type="submit" class="btn btn-success">
+          <button type="submit" className="btn btn-success">
             <Link
               to={`/EqualizerTest/${this.state.value}`}
               style={{ textDecoration: 'none', color: 'white' }}

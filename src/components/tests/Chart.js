@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import Line from 'react-chartjs-2';
+import { compose } from 'redux';
+import { connect } from 'react-redux';
+import { firebaseConnect } from 'react-redux-firebase';
 
 
 class Chart extends Component {
@@ -9,34 +12,9 @@ class Chart extends Component {
         
     }
 
-
-    // const data = {
-    //     labels: ["January", "February", "March", "April", "May", "June", "July"],
-    //     datasets: [
-    //         {
-    //             label: "My First dataset",
-    //             fillColor: "rgba(220,220,220,0.2)",
-    //             strokeColor: "rgba(220,220,220,1)",
-    //             pointColor: "rgba(220,220,220,1)",
-    //             pointStrokeColor: "#fff",
-    //             pointHighlightFill: "#fff",
-    //             pointHighlightStroke: "rgba(220,220,220,1)",
-    //             data: [65, 59, 80, 81, 56, 55, 40]
-    //         },
-    //         {
-    //             label: "My Second dataset",
-    //             fillColor: "rgba(151,187,205,0.2)",
-    //             strokeColor: "rgba(151,187,205,1)",
-    //             pointColor: "rgba(151,187,205,1)",
-    //             pointStrokeColor: "#fff",
-    //             pointHighlightFill: "#fff",
-    //             pointHighlightStroke: "rgba(151,187,205,1)",
-    //             data: [28, 48, 40, 19, 86, 27, 90]
-    //         }
-    //     ]
-    // };
-
   render() {
+    //const { userScore } = this.props;
+
     return (
       <div>
         <Line 
@@ -45,10 +23,17 @@ class Chart extends Component {
             height={50}
             options={{maintainAspectRation:false}}
         />
+        You have this score
       </div>
     )
   }
 }
 
 
-export default Chart;
+export default compose(
+  firebaseConnect(),
+  connect((state, props) => ({
+      auth: state.firebase.auth,
+      data: state.firestore.ordered.users,
+  }))
+)(Chart);

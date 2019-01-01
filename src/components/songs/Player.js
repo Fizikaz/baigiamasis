@@ -109,7 +109,7 @@ class Player extends Component {
       if(this.currentTime == this.region[0]) {
         checkResults(100, 100);
 
-        this.region[0].checked = true;
+        // this.region[0].checked = true;
       };
 
 
