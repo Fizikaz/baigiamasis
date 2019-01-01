@@ -7,6 +7,7 @@ import { firestoreConnect } from 'react-redux-firebase';
 import FileUploader from 'react-firebase-file-uploader';
 import firebase, { auth } from 'firebase';
 import { runInThisContext } from 'vm';
+import { Line } from 'rc-progress';
 
 class AddSong extends Component {
     state = {
@@ -111,7 +112,7 @@ onChange = (e) => this.setState({ [e.target.name]: e.target.value});
                     </div>
                     <div className="form-group">
                         <label htmlFor="songGenre">Upload song</label>
-                        {this.state.isUploading && <p>Progress: {this.state.progress}</p>}
+                        {this.state.isUploading && <Line percent={this.state.progress} strokeWidth="1" strokeColor="#6666FF"/>}
                         <FileUploader 
                             className="form-control"
                             accept="audio/*"

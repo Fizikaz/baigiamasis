@@ -24,21 +24,12 @@ class SongDetails extends Component {
   onDeleteClick = () => {
 
     const { song, firestore, history } = this.props;
-
+    
     var songRef = firebase.storage().refFromURL(this.props.song.songURL)
-    // this.songStorageId = {song.songStorageId};
 
     songRef.delete()
-
     firestore.delete({collection: 'songs', doc: song.id})
     .then(() => history.push('/'));
-
-    // firebase
-    // .storage()
-    // .ref("songs")
-    // .child(songRef)
-    // .delete()
-    // .then(() => history.push('/'))
 
   }
 

@@ -5,10 +5,11 @@ import { connect } from "react-redux";
 import { firestoreConnect } from "react-redux-firebase";
 import { Link } from "react-router-dom";
 
+import Spinner from '../layout/Spinner';
 import Player from "../songs/Player";
 import Slider from "../tests/Slider";
 
-//import QuestionCounter from "../tests/QuestionCounter";
+// import QuestionCounter from "../tests/QuestionCounter";
 
 class EqualizerTest extends Component {
   
@@ -33,7 +34,8 @@ class EqualizerTest extends Component {
     currentValue: 16000,
     max: 16000,
     min: 20,
-    isPlaying: false
+    isPlaying: false,
+    finishedLoading: false
   };
 
   componentDidMount() {
@@ -41,6 +43,10 @@ class EqualizerTest extends Component {
       testDate: new Date().toLocaleString()
     });
 
+    this.generateTest();
+  }
+
+  generateTest = e => {
     this.setState({
       testValues: [
         { eqValue: Math.floor((Math.random() * 16000) + 1)},
@@ -52,13 +58,21 @@ class EqualizerTest extends Component {
   }
 
   componentWillUnmount() {
-
+    this.setState({
+      isPlaying: false
+    });
   }
 
   finishTest = e => {
     this.setState({
       testFinished: true
     });
+  }
+
+  handler = e => {
+    this.setState({
+      finishedLoading: true
+    })
   }
 
   changeValue = e => {
@@ -98,12 +112,14 @@ class EqualizerTest extends Component {
 
     return (
       <div>
+        <h2>{this.props.song.songArtist} - {this.props.song.songName}</h2>
         <Player
           // ref={this.player}
           songUrl={this.props.song.songURL}
           testTypeSelected={this.state.testTypeSelected}
           shouldPlay={this.state.isPlaying}
           filterValue={this.state.currentValue}
+          finishedLoading={this.state.finishedLoading}
           // correctAnswer={this.state.testValues}
           // userAnswer={this.state.testSubmittedValues}
         />
@@ -116,13 +132,13 @@ class EqualizerTest extends Component {
           min={this.state.min}
         />
 
-        <button  onClick={this.handlePlaying} className="btn btn-success">
+        <button  onClick={this.handlePlaying} className="btn btn-lg btn-success m-2">
           Play
         </button>
-        <button type="submit" className="btn btn-success">
-          <Link to="/results">Finish</Link>
+        <button type="submit" onClick={this.onSubmit} className="btn btn-lg btn-success m-2">
+          <Link style={{ textDecoration: 'none', color: 'white' }} to="/results">Finish</Link>
         </button>
-        <button onClick={this.onSubmit} className="btn btn-success" >Hello</button>
+        {/* <button onClick={this.onSubmit} className="btn btn-success" >Hello</button> */}
       </div>
     );
   }

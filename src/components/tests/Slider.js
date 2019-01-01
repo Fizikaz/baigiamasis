@@ -21,6 +21,16 @@ class Slider extends Component {
   render() {
     return (
       <div>
+      <span id='currentSliderValue'>Pasirinkite dažnį, kuriame vyksta pokyčiai:  </span>
+
+        <hr/>
+        <h1>
+        {this.props.value}
+        </h1>
+        
+
+        <hr />
+
         <ReactBootstrapSlider
             value={this.props.value}
             change={this.props.changeValue}
@@ -34,7 +44,7 @@ class Slider extends Component {
         />
         
         <hr/>
-        <span id='currentSliderValue'>Current Slider Value: {this.props.value} </span>
+        
       </div>
     )
   }

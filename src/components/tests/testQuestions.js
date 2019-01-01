@@ -51,3 +51,14 @@ var testQuestions = [
     },
 
 ]
+
+
+
+function checkAnswers(correctArray, submittedArray) {
+    var testScores = [];
+
+    correctArray.forEach(
+    )    
+}
+
+function generateRandomValues(firebasetable)

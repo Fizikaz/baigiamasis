@@ -19,15 +19,8 @@ class Player extends Component {
       this.waveform.pause(); 
     }
     
-    // if(nextProps.generateTest){
-    //   this.generateTest();
-    // }
     
   }
-
-  // generateTest() {
-  //   console.log("labas");
-  // }
 
   componentDidMount() {
     this.waveform = new WaveSurfer.create({
@@ -43,8 +36,13 @@ class Player extends Component {
       ]
     });
 
+  
 
     this.waveform.on('ready', () => {
+
+      this.areWeFinished = true;
+      
+      this.areWeFinished = this.props.finishedLoading;
 
       this.filter = this.waveform.backend.ac.createBiquadFilter();
       this.waveform.backend.setFilters([this.filter]);

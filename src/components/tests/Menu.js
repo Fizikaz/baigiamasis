@@ -27,10 +27,10 @@ class Menu extends Component {
     this.setState({ value: e.target.value });
   };
 
-  handleSubmit = e => {
-    alert("You have selected this song" + this.state.value);
-    e.preventDefault();
-  };
+  // handleSubmit = e => {
+  //   alert("You have selected this song" + this.state.value);
+  //   e.preventDefault();
+  // };
 
   render() {
 
@@ -72,7 +72,7 @@ class Menu extends Component {
             </select>
           </div>
 
-          <label htmlFor="exampleFormControlSelect1">Choose test type: </label>
+          <label htmlFor="exampleFormControlSelect1">Choose frequencies to play with: </label>
 
           {/* <div className="form-check">
             <input type="radio" className="form-check-input"/>
@@ -100,6 +100,7 @@ class Menu extends Component {
           <button type="submit" class="btn btn-success">
             <Link
               to={`/EqualizerTest/${this.state.value}`}
+              style={{ textDecoration: 'none', color: 'white' }}
               className="nav-link"
             >
               Play

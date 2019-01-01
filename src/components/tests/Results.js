@@ -11,39 +11,30 @@ class Results extends Component {
 
     columns = [{
         dataField: 'testId',
-        text: 'Test ID'
+        text: 'Region'
       }, {
-        dataField: 'testScore',
-        text: 'Your Score'
+        dataField: 'testSubmittedValues',
+        text: 'Submitted Answer'
+      }, {
+        dataField: 'isPlaying',
+        text: 'Correct Answer'
       }];
+  
 
   render() {
+   const { userTests = [] } = this.props;
 
-   const { userTests = []} = this.props;
+   this.databaseEntry = userTests[Object.keys(userTests)[0]];
 
+   console.log(this.databaseEntry);
 
     return (
-
-
-    
-
       <div>
         <BootstrapTable keyField='testId' data={ userTests } columns={ this.columns } />
       </div>
     )
   }
 }
-
-
-// export default compose(
-//     firestoreConnect(props => [
-//         { collection: 'tests', storeAs: 'test', doc: props.match.params.id }
-//     ]),
-//     connect(({ firestore: { ordered } }, props) => ({
-//       tests: ordered.test && ordered.test[0]
-//     }))
-//   )(Results);
-
 
   export default compose(
     firestoreConnect([{ collection: 'tests' }]),

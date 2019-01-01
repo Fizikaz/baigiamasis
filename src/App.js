@@ -16,12 +16,10 @@ import Menu from './components/tests/Menu';
 import EqualizerTest from './components/tests/EqualizerTest';
 import { combineReducers } from 'redux';
 import Results from './components/tests/Results'
-// import { ReactComponent } from '*.svg';
+import Chart from './components/tests/Chart';
 
 
 class App extends Component {
-
-
   render() {
     return (
       <Provider store={store}>
@@ -35,6 +33,11 @@ class App extends Component {
               exact 
               path="/" 
               component={UserIsAuthenticated(Dashboard)} 
+            />
+            <Route 
+              exact 
+              path="/chart" 
+              component={UserIsAuthenticated(Chart)} 
             />
             <Route 
               exact 
@@ -82,13 +85,5 @@ class App extends Component {
 }
 
 
-// const rootReducer = combineReducers({
-//   webAudioReducer
-// });
-
-// const Container = connect(
-//   state => state,
-//   dispatch => ({ makeNoise: () => dispatch(actionCreators.emit(audioEvent)) })
-// )(ReactComponent);
 
 export default App;
