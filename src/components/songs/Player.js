@@ -40,8 +40,8 @@ class Player extends Component {
 
     this.waveform.on('ready', () => {
 
+      // checks if song is finished and stops spinner gif from parent element
       this.areWeFinished = true;
-      
       this.areWeFinished = this.props.finishedLoading;
 
       this.filter = this.waveform.backend.ac.createBiquadFilter();
@@ -50,6 +50,8 @@ class Player extends Component {
       this.songLength = Math.round(this.waveform.backend.getDuration());
 
       this.region = [];
+      this.regionChecked = [];
+      this.regionChecked[0] = false;
 
       this.region[0] = Math.round(this.songLength/4);
       this.region[1] = Math.round(this.songLength/2);
@@ -95,7 +97,7 @@ class Player extends Component {
       }
     };
     
-    this.waveform.on('audioprocess', () => {
+   this.waveform.on('audioprocess', () => {
 
       this.filter.type = "lowpass";
       this.filter.gain.value = 0;
@@ -104,14 +106,37 @@ class Player extends Component {
 
       this.currentTime = Math.round(this.waveform.getCurrentTime()) - 1;
 
-
       //CHECK IF CURRENT TIME CORRELATES WITH THE REGION ENDING
-      if(this.currentTime == this.region[0]) {
-        checkResults(100, 100);
+      
+      // switch(this.currentTime){
+      //   case this.region[0]:
+      //     console.log(this.regionChecked[0]);
+      //     break;
+      //   case this.region[1]:
+      //     console.log('hello 1');
+      //     this.regionChecked[`1`] = true;
+      //     break;
+      // }
+      
 
-        // this.region[0].checked = true;
+      if(this.currentTime == this.region[0] && this.regionChecked[0] == false) {
+        console.log('labas');
+        this.regionChecked[0] = true;
       };
 
+      // if(this.regionChecked[0] = true){
+      //   if(this.currentTime == this.region[1]) {
+      //     console.log('hello 1');
+      //     this.regionChecked[1] = true;
+      //   };
+      // } 
+
+      // if(this.regionChecked[1] = true){
+      //   if(this.currentTime == this.region[2]) {
+      //     checkResults(100, 100);
+      //     this.regionChecked[2] = true;
+      //   };
+      // }
 
     });
 

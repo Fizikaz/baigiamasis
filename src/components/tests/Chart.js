@@ -17,13 +17,13 @@ class Chart extends Component {
 
     return (
       <div>
-        <Line 
+        {/* <Line 
             data={this.data}
             width={100}
             height={50}
             options={{maintainAspectRation:false}}
-        />
-        You have this score
+        /> */}
+        
       </div>
     )
   }
@@ -34,6 +34,5 @@ export default compose(
   firebaseConnect(),
   connect((state, props) => ({
       auth: state.firebase.auth,
-      data: state.firestore.ordered.users,
   }))
 )(Chart);

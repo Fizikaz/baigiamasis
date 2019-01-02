@@ -9,14 +9,9 @@ import Spinner from '../layout/Spinner';
 import Player from "../songs/Player";
 import Slider from "../tests/Slider";
 
-// import QuestionCounter from "../tests/QuestionCounter";
 
 class EqualizerTest extends Component {
-  
-  // constructor(props) {
-  //   super(props);
-  //   this.player = React.createRef();
-  // }
+
 
   state = {
     testDate: "",
