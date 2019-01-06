@@ -18,8 +18,15 @@ class Player extends Component {
     if(this.props.shouldPlay && !nextProps.shouldPlay){
       this.waveform.pause(); 
     }
-    
-    
+  }
+
+  changeTest = (filterValue) => {
+    this.filter.type = "lowpass";
+    this.filter.gain.value = 0;
+    this.filter.Q.value = 1;
+    this.filter.frequency.value = filterValue;
+
+    console.log("changing frequency: " + filterValue);
   }
 
   componentDidMount() {
@@ -36,8 +43,6 @@ class Player extends Component {
       ]
     });
 
-  
-
     this.waveform.on('ready', () => {
 
       // checks if song is finished and stops spinner gif from parent element
@@ -50,8 +55,7 @@ class Player extends Component {
       this.songLength = Math.round(this.waveform.backend.getDuration());
 
       this.region = [];
-      this.regionChecked = [];
-      this.regionChecked[0] = false;
+      this.regionChecked = [false, false, false, false, false];
 
       this.region[0] = Math.round(this.songLength/4);
       this.region[1] = Math.round(this.songLength/2);
@@ -87,56 +91,35 @@ class Player extends Component {
       });
     });
 
-    function checkResults(correctAnswer, userAnswer){
-      if(correctAnswer*1.1 >= userAnswer >= correctAnswer*0.9){
-        console.log("good answer");
-        return true;
-      } else {
-        console.log("bad answer");
-        return false;
-      }
-    };
+
     
    this.waveform.on('audioprocess', () => {
 
-      this.filter.type = "lowpass";
-      this.filter.gain.value = 0;
-      this.filter.Q.value = 1;
-      this.filter.frequency.value = this.props.filterValue;
+      //CHECK IF CURRENT TIME CORRELATES WITH THE REGION ENDING
 
+      //PRIDETI REGIONA
       this.currentTime = Math.round(this.waveform.getCurrentTime()) - 1;
 
-      //CHECK IF CURRENT TIME CORRELATES WITH THE REGION ENDING
-      
-      // switch(this.currentTime){
-      //   case this.region[0]:
-      //     console.log(this.regionChecked[0]);
-      //     break;
-      //   case this.region[1]:
-      //     console.log('hello 1');
-      //     this.regionChecked[`1`] = true;
-      //     break;
-      // }
-      
-
-      if(this.currentTime == this.region[0] && this.regionChecked[0] == false) {
-        console.log('labas');
+      if(this.currentTime < this.region[0] && this.regionChecked[0] === false){
         this.regionChecked[0] = true;
+        this.changeTest(this.props.generatedValues[0].eqValue);
       };
-
-      // if(this.regionChecked[0] = true){
-      //   if(this.currentTime == this.region[1]) {
-      //     console.log('hello 1');
-      //     this.regionChecked[1] = true;
-      //   };
-      // } 
-
-      // if(this.regionChecked[1] = true){
-      //   if(this.currentTime == this.region[2]) {
-      //     checkResults(100, 100);
-      //     this.regionChecked[2] = true;
-      //   };
-      // }
+      if(this.currentTime === this.region[0] && this.regionChecked[1] === false) {
+                   // irasyti slider verte i lentele
+        this.regionChecked[1] = true;
+        this.changeTest(this.props.generatedValues[1].eqValue);
+        this.props.checkResults(this.props.filterValue, this.props.generatedValues[0].eqValue);
+      };
+      if(this.currentTime === this.region[1] && this.regionChecked[2] === false) {
+        this.regionChecked[2] = true;
+        this.changeTest(this.props.generatedValues[2].eqValue);
+        this.props.checkResults(this.props.filterValue, this.props.generatedValues[1].eqValue);
+      };
+      if(this.currentTime === this.region[2] && this.regionChecked[3] === false) {
+        this.regionChecked[3] = true;
+        this.changeTest(this.props.generatedValues[3].eqValue);
+        this.props.checkResults(this.props.filterValue, this.props.generatedValues[2].eqValue);
+      };
 
     });
 

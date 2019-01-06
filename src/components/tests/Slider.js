@@ -1,22 +1,8 @@
 import React, { Component } from 'react';
 import ReactBootstrapSlider from 'react-bootstrap-slider';
-import QuestionCounter from './QuestionCounter';
 
 class Slider extends Component {
 
-
-
-  // handleEvent = (e) => {
-  //   this.setState({
-  //     currentValue: e
-  //   })
-  // }
-
-  // onChangeSliderValue(newSliderValue) {
-  //   this.setState({
-  //     currentValue: newSliderValue
-  //   });
-  // }
 
   render() {
     return (

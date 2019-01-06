@@ -38,12 +38,6 @@ handleUploadSuccess = filename => {
         .then(url => this.setState({ songURL: url }));
 };
 
-// handleSongIdUploadToUserCollection = filename => {
-//     this.setState({ userSongs: filename });
-//     firebase
-//     .storage()
-    
-// }
 
 onSubmit = (e) => {
     e.preventDefault();

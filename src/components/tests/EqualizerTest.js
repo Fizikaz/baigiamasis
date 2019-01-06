@@ -19,12 +19,7 @@ class EqualizerTest extends Component {
     testId: null,
     testScore: null,
     testValues: [ ],
-    testSubmittedValues: [
-      // { eqValue: 450 },
-      // { eqValue: 1050 },
-      // { eqValue: 800 },
-      // { eqValue: 400 }
-    ],
+    testSubmittedValues: [ ],
     testType: "fixedEqualizer",
     currentValue: 16000,
     max: 16000,
@@ -33,12 +28,22 @@ class EqualizerTest extends Component {
     finishedLoading: false
   };
 
-  componentDidMount() {
+  componentWillMount() {
+    this.generateTest();
     this.setState({
       testDate: new Date().toLocaleString()
     });
 
-    this.generateTest();
+  }
+
+  // componentDidMount() {
+  //   this.checkResults(100, 100);
+  // }
+
+  componentWillUnmount() {
+    this.setState({
+      isPlaying: false
+    });
   }
 
   generateTest = e => {
@@ -49,12 +54,6 @@ class EqualizerTest extends Component {
         { eqValue: Math.floor((Math.random() * 16000) + 1)},
         { eqValue: Math.floor((Math.random() * 16000) + 1)}
       ]
-    });
-  }
-
-  componentWillUnmount() {
-    this.setState({
-      isPlaying: false
     });
   }
 
@@ -82,11 +81,17 @@ class EqualizerTest extends Component {
     });
   };
 
-  // handleGenerateTest = e => {
-  //   this.player.current.generateTest();
-  // }
+
+  calculateScore = (userAnswer, correctAnswer) => {
+
+    let score = Math.abs(correctAnswer-userAnswer)/correctAnswer;
+    return score;
+
+  };
 
   onSubmit = e => {
+
+    //IRASYTI SCORE BENDRA
     e.preventDefault();
 
     this.setState({
@@ -97,8 +102,25 @@ class EqualizerTest extends Component {
     const { firestore, history } = this.props;
 
     firestore.add({ collection: 'tests' }, newTest)
-    .then(() => history.push('/'));
+    .then((docRef) => history.push(`/results/${docRef.id}`))
+    .catch(error => console.error("Error adding document: ", error));
+
 };
+
+
+      // IRASYTI REZULTATUS I STATE ESANTI testSubmittedValues MASYVA
+  checkResults = userAnswer => {
+
+    let testSubmittedValues = this.state.testSubmittedValues;
+
+    testSubmittedValues.push({eqValue: userAnswer});
+
+    this.setState({ 
+      testSubmittedValues: testSubmittedValues
+     });
+      }
+
+
 
   render() {
     if(!this.props.song){
@@ -115,7 +137,8 @@ class EqualizerTest extends Component {
           shouldPlay={this.state.isPlaying}
           filterValue={this.state.currentValue}
           finishedLoading={this.state.finishedLoading}
-          // correctAnswer={this.state.testValues}
+          checkResults={this.checkResults}
+          generatedValues={this.state.testValues}
           // userAnswer={this.state.testSubmittedValues}
         />
         <hr />

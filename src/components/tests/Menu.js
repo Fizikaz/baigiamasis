@@ -27,10 +27,6 @@ class Menu extends Component {
     this.setState({ value: e.target.value });
   };
 
-  // handleSubmit = e => {
-  //   alert("You have selected this song" + this.state.value);
-  //   e.preventDefault();
-  // };
 
   render() {
 
@@ -52,12 +48,6 @@ class Menu extends Component {
               onChange={this.handleChange}
               className="form-control"
             >
-              {/* <option value="song1">Song 1</option>
-              <option value="song2">Song 2</option> // extract songs
-              from user SongList
-              <option value="song3">Song 3</option>
-              <option value="song4">Song 4</option>
-              <option value="song5">Song 5</option> */}
               
               {userSongs.map(song => (
                 <option 
@@ -73,20 +63,6 @@ class Menu extends Component {
           </div>
 
           <label htmlFor="exampleFormControlSelect1">Choose frequencies to play with: </label>
-
-          {/* <div className="form-check">
-            <input type="radio" className="form-check-input"/>
-            <label htmlFor="testTypeFix" className="form-check-label">
-              Fiksuoti dažniai
-            </label>
-          </div>
-
-          <div className="form-check">
-            <input type="radio" className="form-check-input"/>
-            <label htmlFor="testTypeFix" className="form-check-label">
-              Nefiksuoti dažniai
-            </label>
-          </div> */}
 
           <hr />
 

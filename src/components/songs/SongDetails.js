@@ -13,13 +13,9 @@ import VanillaPlayer from './VanillaPlayer';
 
 class SongDetails extends Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      isPlaying: false,
-    }
-  }
+  state = {
+      isPlaying: false
+  };
 
   handlePlaying = e => {
     this.setState({
@@ -36,11 +32,10 @@ class SongDetails extends Component {
     songRef.delete()
     firestore.delete({collection: 'songs', doc: song.id})
     .then(() => history.push('/'));
-
   }
 
-
   render() {
+
 
     const song = this.props.song;
 
@@ -48,10 +43,7 @@ class SongDetails extends Component {
       return null
     }
 
-    // if(song) {
-
-
-
+    console.log(song.songURL);
 
     return (
 
@@ -88,22 +80,13 @@ class SongDetails extends Component {
                     songUrl={song.songURL}
                     shouldPlay={this.state.isPlaying}
                />
-              {/* <button onClick={() => this.setState({ })}>
-                Play
-              </button>
-              <button onClick={() => this.setState({ })}>
-                Pause
-              </button> */}
             </div>           
               <button  onClick={this.handlePlaying} className="btn btn-lg btn-success m-2">
-                Play
+                Play/Pause
               </button>
           </div>
       </div>
     );
-    // } else {
-    //   return <Spinner />;
-    // }
   }
 }
 
@@ -123,42 +106,3 @@ export default compose(
       song: ordered.song && ordered.song[0]
     }))
   )(SongDetails);
-
-
-
-
-
-
-
-  // init = () => {
-
-
-  //   this.p = Peaks.init({
-  //     container: this.audio,
-  //     mediaElement: document.querySelector('audio'),
-  //     audioContext: myAudioContext
-  //   });
-
-  //   p.on('peaks.ready', function() {
-  //     state.ready = true
-  //   });
-
-  // }
-  
-
-  // componentDidMount() { this.init()}
-
-  // componentWillReceiveProps(props, newProps){</ClickOutside>
-  //   if(props.id !== newProps.id){
-  //     p.des
-  //     init
-  //   }
-  // }
-
-  // shouldComponentUpdate(){
-  //   return false;
-  // }
-
-  // render() {
-  //   return (
-  //     <ClickOutside ref={(div) => this.audio = div} >

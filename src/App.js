@@ -72,7 +72,7 @@ class App extends Component {
             />
             <Route
               exact
-              path='/results'
+              path='/results/:id'
               component={UserIsAuthenticated(Results)}
             />
           </Switch>

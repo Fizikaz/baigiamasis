@@ -13,7 +13,8 @@ class Chart extends Component {
     }
 
   render() {
-    //const { userScore } = this.props;
+    
+    
 
     return (
       <div>
