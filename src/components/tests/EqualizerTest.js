@@ -57,11 +57,12 @@ class EqualizerTest extends Component {
     });
   }
 
-  finishTest = e => {
-    this.setState({
-      testFinished: true
-    });
-  }
+  // finishTest = e => {
+  //   this.setState({
+  //     testFinished: true,
+  //     isPlaying: false
+  //   });
+  // }
 
   handler = e => {
     this.setState({
@@ -82,17 +83,21 @@ class EqualizerTest extends Component {
   };
 
 
-  calculateScore = (userAnswer, correctAnswer) => {
+  // calculateScore = (userAnswer, correctAnswer) => {
 
-    let score = Math.abs(correctAnswer-userAnswer)/correctAnswer;
-    return score;
+  //   let score = (correctAnswer - Math.abs(correctAnswer - userAnswer)) / correctAnswer * 100;
+  //   console.log(score);
 
-  };
+  // };
 
   onSubmit = e => {
 
     //IRASYTI SCORE BENDRA
     e.preventDefault();
+
+    this.setState({
+      isPlaying: false
+    });
 
     this.setState({
       testDate: new Date().toLocaleString()
@@ -109,18 +114,18 @@ class EqualizerTest extends Component {
 
 
       // IRASYTI REZULTATUS I STATE ESANTI testSubmittedValues MASYVA
-  checkResults = userAnswer => {
+  writeResults = (userAnswer, correctAnswer) => {
 
     let testSubmittedValues = this.state.testSubmittedValues;
 
     testSubmittedValues.push({eqValue: userAnswer});
 
+    this.calculateScore(userAnswer, correctAnswer);
+
     this.setState({ 
       testSubmittedValues: testSubmittedValues
      });
-      }
-
-
+  }
 
   render() {
     if(!this.props.song){
@@ -131,15 +136,13 @@ class EqualizerTest extends Component {
       <div>
         <h2>{this.props.song.songArtist} - {this.props.song.songName}</h2>
         <Player
-          // ref={this.player}
           songUrl={this.props.song.songURL}
           testTypeSelected={this.state.testTypeSelected}
           shouldPlay={this.state.isPlaying}
           filterValue={this.state.currentValue}
           finishedLoading={this.state.finishedLoading}
-          checkResults={this.checkResults}
+          writeResults={this.writeResults}
           generatedValues={this.state.testValues}
-          // userAnswer={this.state.testSubmittedValues}
         />
         <hr />
         <Slider
@@ -149,14 +152,12 @@ class EqualizerTest extends Component {
           max={this.state.max}
           min={this.state.min}
         />
-
         <button  onClick={this.handlePlaying} className="btn btn-lg btn-success m-2">
           Play
         </button>
         <button type="submit" onClick={this.onSubmit} className="btn btn-lg btn-success m-2">
           <Link style={{ textDecoration: 'none', color: 'white' }} to="/results">Finish</Link>
         </button>
-        {/* <button onClick={this.onSubmit} className="btn btn-success" >Hello</button> */}
       </div>
     );
   }
@@ -165,8 +166,6 @@ class EqualizerTest extends Component {
 EqualizerTest.propType = {
   firestore: PropTypes.object.isRequired
 };
-
-// export default EqualizerTest;
 
 export default compose(
   firestoreConnect(props => [

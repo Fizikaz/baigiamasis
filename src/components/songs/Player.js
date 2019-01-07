@@ -20,13 +20,12 @@ class Player extends Component {
     }
   }
 
-  changeTest = (filterValue) => {
+  changeFrequency = (filterValue) => {
     this.filter.type = "lowpass";
     this.filter.gain.value = 0;
     this.filter.Q.value = 1;
     this.filter.frequency.value = filterValue;
 
-    console.log("changing frequency: " + filterValue);
   }
 
   componentDidMount() {
@@ -102,23 +101,23 @@ class Player extends Component {
 
       if(this.currentTime < this.region[0] && this.regionChecked[0] === false){
         this.regionChecked[0] = true;
-        this.changeTest(this.props.generatedValues[0].eqValue);
+        this.changeFrequency(this.props.generatedValues[0].eqValue);
       };
       if(this.currentTime === this.region[0] && this.regionChecked[1] === false) {
                    // irasyti slider verte i lentele
         this.regionChecked[1] = true;
-        this.changeTest(this.props.generatedValues[1].eqValue);
-        this.props.checkResults(this.props.filterValue, this.props.generatedValues[0].eqValue);
+        this.changeFrequency(this.props.generatedValues[1].eqValue);
+        this.props.writeResults(this.props.filterValue, this.props.generatedValues[0].eqValue);
       };
       if(this.currentTime === this.region[1] && this.regionChecked[2] === false) {
         this.regionChecked[2] = true;
-        this.changeTest(this.props.generatedValues[2].eqValue);
-        this.props.checkResults(this.props.filterValue, this.props.generatedValues[1].eqValue);
+        this.changeFrequency(this.props.generatedValues[2].eqValue);
+        this.props.writeResults(this.props.filterValue, this.props.generatedValues[1].eqValue);
       };
       if(this.currentTime === this.region[2] && this.regionChecked[3] === false) {
         this.regionChecked[3] = true;
-        this.changeTest(this.props.generatedValues[3].eqValue);
-        this.props.checkResults(this.props.filterValue, this.props.generatedValues[2].eqValue);
+        this.changeFrequency(this.props.generatedValues[3].eqValue);
+        this.props.writeResults(this.props.filterValue, this.props.generatedValues[2].eqValue);
       };
 
     });

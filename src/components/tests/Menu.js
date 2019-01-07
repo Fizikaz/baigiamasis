@@ -48,7 +48,7 @@ class Menu extends Component {
               onChange={this.handleChange}
               className="form-control"
             >
-              
+              <option disabled selected value> -- select and option -- </option>
               {userSongs.map(song => (
                 <option 
                 key={song.id} 

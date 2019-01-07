@@ -23,6 +23,14 @@ class SongDetails extends Component {
     });
   };
 
+  componentWillUnmount() {
+    this.setState({
+      isPlaying: false
+    });
+
+    // console.log("unmounting songdetails");
+  }
+
   onDeleteClick = () => {
 
     const { song, firestore, history } = this.props;
@@ -43,7 +51,6 @@ class SongDetails extends Component {
       return null
     }
 
-    console.log(song.songURL);
 
     return (
 
@@ -65,13 +72,11 @@ class SongDetails extends Component {
           </div>
           <div className="card">
             <h3 className="card-header">
-              {song.songName}
+             {song.songArtist} - {song.songName}
             </h3>
             <div className="card-body">
               <div className="row">
-                <div className="col-md-8 col-sm-6">
-                  <h4>Song ID:{''} <span className="text-secondary">{}</span></h4>
-                </div>
+
                 <div className="col-md-4 col-sm-6">
         
                   </div>

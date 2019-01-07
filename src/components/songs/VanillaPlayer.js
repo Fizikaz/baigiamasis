@@ -6,9 +6,9 @@ import WaveSurfer from 'wavesurfer.js';
 
 class VanillaPlayer extends Component {
 
-  // shouldComponentUpdate() {
-  //   return true;
-  // }
+  shouldComponentUpdate() {
+    return false;
+  }
 
   componentWillReceiveProps(nextProps) {
     if(nextProps.shouldPlay){
@@ -17,8 +17,6 @@ class VanillaPlayer extends Component {
     if(this.props.shouldPlay && !nextProps.shouldPlay){
       this.waveform.pause(); 
     }
-
-    console.log("coming from componentWillReceiveProps");
   }
 
 
@@ -32,8 +30,6 @@ class VanillaPlayer extends Component {
       responsive: true,
       interact: true,
     });
-
-    console.log("componentdidmount", this.props.songUrl);
     
     this.waveform.load(this.props.songUrl);
     

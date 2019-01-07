@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
 import { firebaseConnect } from 'react-redux-firebase';
+import { firestoreConnect } from "react-redux-firebase";
 import { notifyUser } from '../../actions/notifyActions';
 import Alert from '../layout/Alert';
 
@@ -17,11 +18,28 @@ class Login extends Component {
   }
 }
 
+//   createUser = newUserId => {
+//     const newUser = {
+//         email: this.state.email,
+//         userId: newUserId
+//     };
+//     const { firestore } = this.props;
+
+//     console.log("creaTingUser");
+
+//     firestore.add({ collection: 'users' }, newUser)
+//     .catch(error => console.error("Error adding document: ", error));
+//   }
+
   signup(e) {
       e.preventDefault();
       const { firebase, notifyUser } = this.props;
 
+
       firebase.auth().createUserWithEmailAndPassword(this.state.email, this.state.password)
+     .then(function(data){
+        console.log(data.user.uid);
+     })
      .catch((error)=> notifyUser('That User Already Exists', error))
   };
 

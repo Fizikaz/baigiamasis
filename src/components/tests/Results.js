@@ -57,11 +57,11 @@ class Results extends Component {
           return a;
         }
         a.submittedValue = a.submittedValue.eqValue;
-        a.accuracy = Math.abs(a.testValue - a.submittedValue);
+
+        a.accuracy = Math.round((a.testValue - Math.abs(a.testValue - a.submittedValue)) / a.testValue * 100);
 
         return a;
    });
-   console.log(regionData);
   
     return (
       <div>
