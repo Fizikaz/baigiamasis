@@ -13,6 +13,11 @@ import VanillaPlayer from './VanillaPlayer';
 
 class SongDetails extends Component {
 
+  constructor(props) {
+    super(props);
+
+  }
+
   state = {
       isPlaying: false
   };
@@ -43,18 +48,15 @@ class SongDetails extends Component {
   }
 
   render() {
-
-
     const song = this.props.song;
 
     if(!song){
       return null
     }
 
+    console.log("render method", song.songURL);
 
     return (
-
-
       <div>
           <div className="row">
             <div className="col-md-6">

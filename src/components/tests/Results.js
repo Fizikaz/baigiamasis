@@ -11,7 +11,6 @@ class Results extends Component {
 
     state = {
       userTestId: null
-
     }
 
     columns = [{
@@ -28,7 +27,6 @@ class Results extends Component {
         text: 'Accuracy'
       }];
 
-
   render() {
   
     const test = this.props.test;
@@ -36,10 +34,6 @@ class Results extends Component {
     if(!test){
       return null
     }
-   
-    //const regionData = [];
-
-    
     
      const regionData = test.testValues.map((value, index) => {
         let a = {};
@@ -75,8 +69,6 @@ class Results extends Component {
     )
   }
 }
-
-
 
   export default compose(
     firestoreConnect(props => [

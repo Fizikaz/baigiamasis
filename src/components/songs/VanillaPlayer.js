@@ -33,6 +33,7 @@ class VanillaPlayer extends Component {
     
     this.waveform.load(this.props.songUrl);
     
+    console.log("componentdidmount method", this.props.songUrl);
   }
 
   render() {
