@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import { compose } from 'redux';
 import { connect } from 'react-redux';
-import { firebaseConnect } from 'react-redux-firebase';
+import { firebaseConnect, firestoreConnect } from 'react-redux-firebase';
 import Login from '../auth/Login';
 
 class AppNavbar extends Component {
@@ -31,6 +31,18 @@ class AppNavbar extends Component {
   render() {
     const { isAuthenticated } = this.state;
     const { auth } = this.props;
+
+    const { tests } = this.props;
+
+    if(!tests){
+      return null
+    }
+
+    let scoreRef = tests.map(a => a.testScore);
+
+    const  userTotalScore = scoreRef.reduce((result, item) => {
+      return result + item;
+    }, 0);
 
 
     return (
@@ -64,7 +76,7 @@ class AppNavbar extends Component {
                         
                         <li className="nav-item" >
                             <Link to="/chart" className="nav-link">
-                                { auth.email }
+                                { auth.email }({userTotalScore})
                             </Link>
                         </li>
                     
@@ -102,9 +114,18 @@ AppNavbar.propTypes = {
     auth: PropTypes.object.isRequired
 };
 
+// export default compose(
+//     firebaseConnect(),
+//     connect((state, props) => ({
+//         auth: state.firebase.auth
+//     }))
+// )(AppNavbar);
+
+
 export default compose(
-    firebaseConnect(),
+    firestoreConnect([{ collection: 'tests' }]),
     connect((state, props) => ({
-        auth: state.firebase.auth
+      tests: state.firestore.ordered.tests,
+      auth: state.firebase.auth
     }))
-)(AppNavbar);
+  )(AppNavbar);

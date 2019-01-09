@@ -63,13 +63,13 @@ class Menu extends Component {
           </div>
 
           <label htmlFor="exampleFormControlSelect1">Choose frequencies to play with: </label>
-
           <hr />
-
           <ButtonGroup>
-            <Button value={"fixed"} onClick={this.onClick}  bsStyle={this.state.testValue === "fixed" ? "primary": ""}>Fixed</Button>
-            <Button value={"nonfixed"} onClick={this.onClick} bsStyle={this.state.testValue === "nonfixed" ? "primary": ""}>Non-fixed</Button>
+            <Button value={"fixed"} onClick={this.onClick}  bsStyle={this.state.testValue === "fixed" ? "primary": ""}>FIXED</Button>
+            <Button value={"nonfixed"} onClick={this.onClick} bsStyle={this.state.testValue === "nonfixed" ? "primary": ""}>RANDOM</Button>
           </ButtonGroup>
+
+          <h4 className="mt-3" >* Tests can be generated from FIXED values(50, 100, 250, 500, 1000, 3000, 5000, 7500, 10000, 12000, 15000) and from RANDOM</h4>
 
           <hr />
           <div className="form-check" />

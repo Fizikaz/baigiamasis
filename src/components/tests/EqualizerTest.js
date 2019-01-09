@@ -120,7 +120,7 @@ class EqualizerTest extends Component {
 
     testSubmittedValues.push({eqValue: userAnswer});
 
-    this.calculateScore(userAnswer, correctAnswer);
+   // this.calculateScore(userAnswer, correctAnswer);
 
     this.setState({ 
       testSubmittedValues: testSubmittedValues

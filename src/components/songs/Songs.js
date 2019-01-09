@@ -13,21 +13,21 @@ class Songs extends Component {
     totalSongs: null
   }
 
-  static getDerivedStateFromProps(props, state){
-    const { songs } = props;
-    // const { auth } = props;
+  // static getDerivedStateFromProps(props, state){
+  //   const { songs } = props;
+  //   // const { auth } = props;
 
-    if(songs) {
-      //Add song number
-      const total = songs.reduce((total, song) => {
-        return total + parseFloat(song.songSize.toString()); // Read firebase number
-      }, 0);
+  //   if(songs) {
+  //     //Add song number
+  //     const total = songs.reduce((total, song) => {
+  //       return total + parseFloat(song.songSize.toString()); // Read firebase number
+  //     }, 0);
 
-      return { totalSongs: total };
-    }
+  //     return { totalSongs: total };
+  //   }
 
-    return null;
-  }
+  //   return null;
+  // }
 
   render() {
     const { userSongs } = this.props;
